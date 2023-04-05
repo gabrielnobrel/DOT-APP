@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Platform } from "react-native"; //identificção de qual sistema operacional está sendo utilizado
 import { useNavigation } from "@react-navigation/native";
 
@@ -18,6 +18,8 @@ export default function SignIn() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  function handleLogin() {}
 
   return (
     <Background>
@@ -40,13 +42,14 @@ export default function SignIn() {
           <Input
             placeholder="Senha"
             autoCorrect={false}
+            //Ao clicar aparecer primeiramente letras minúsculas no teclado
             autoCapitalize={"none"}
             value={password}
             onChangeText={(text) => setPassword(text)}
           />
         </AreaInput>
 
-        <SubmitButton>
+        <SubmitButton onPress={handleLogin}>
           <SubmitText>Acessar</SubmitText>
         </SubmitButton>
 
