@@ -32,7 +32,7 @@ function AuthProvider({ children }) {
       });
   }
 
-  //AUTENTICAR COM O GOOGLE - para corrigir o problema com o getProvider
+  //AUTENTICAR COM O GOOGLE
   async function signInWithGoogle() {
     const provider = new GoogleAuthProvider();
 
@@ -59,7 +59,9 @@ function AuthProvider({ children }) {
   return (
     //Tudo que tiver dentro do AuthContext.Provider pode ser acessado em qualquer canto da página, para isso foi repassado o children como parâmetro
     //Recebe como parâmetro o signed, E converte para booleano, com "!!"
-    <AuthContext.Provider value={{ signed: !!user, user, signUp }}>
+    <AuthContext.Provider
+      value={{ signed: !!user, user, signUp, signInWithGoogle }}
+    >
       {children}
     </AuthContext.Provider>
   );
