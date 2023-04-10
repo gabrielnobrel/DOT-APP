@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import firebaseConnection from "../services/firebaseConnection";
 import {
   getAuth,
@@ -6,11 +6,26 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { set, ref, getDatabase, get } from "firebase/database";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function loadStorage() {
+      //pegar informações do AsyncStorage
+      const storageUser = await AsyncStorage.getItem("Auth_user");
+
+      if (storageUser) {
+        //enviando as informações para o setUser. O 'parse' serve para transformar uma string em ojeto
+        setUser(JSON.parse(storageUser));
+      }
+    }
+
+    loadStorage();
+  }, []);
 
   //Inicializar o auth
   const auth = getAuth(firebaseConnection);
@@ -34,6 +49,7 @@ function AuthProvider({ children }) {
           };
 
           setUser(data);
+          storageUser(data); //armazenar informações do usuário
         });
       })
       .catch((error) => {
@@ -63,12 +79,19 @@ function AuthProvider({ children }) {
           };
 
           setUser(data);
+          storageUser(data); //armazenar informações do usuário
         });
       })
       .catch((error) => {
         //Erro padrão do firebase
         alert(error.code);
       });
+  }
+
+  //armazenar credenciais do usuário
+  async function storageUser(data) {
+    //transformando para string
+    await AsyncStorage.setItem("auth_user", JSON.stringify(data));
   }
 
   return (
