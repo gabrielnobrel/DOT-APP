@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Platform } from "react-native"; //identificção de qual sistema operacional está sendo utilizado
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../contexts/auth";
 
 import {
   Background,
@@ -16,10 +17,14 @@ import {
 
 export default function SignIn() {
   const navigation = useNavigation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { signIn } = useContext(AuthContext);
 
-  function handleLogin() {}
+  function handleLogin() {
+    signIn(email, password);
+  }
 
   return (
     <Background>
