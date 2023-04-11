@@ -12,6 +12,7 @@ export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadStorage() {
@@ -21,6 +22,7 @@ function AuthProvider({ children }) {
       if (storageUser) {
         //enviando as informações para o setUser. O 'parse' serve para transformar uma string em ojeto
         setUser(JSON.parse(storageUser));
+        setLoading(false);
       }
     }
 
