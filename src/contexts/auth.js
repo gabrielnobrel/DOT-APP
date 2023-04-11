@@ -24,6 +24,8 @@ function AuthProvider({ children }) {
         setUser(JSON.parse(storageUser));
         setLoading(false);
       }
+
+      setLoading(false);
     }
 
     loadStorage();
@@ -100,7 +102,9 @@ function AuthProvider({ children }) {
     //Tudo que tiver dentro do AuthContext.Provider pode ser acessado em qualquer canto da página, para isso foi repassado o children como parâmetro
     //Recebe como parâmetro o signed e converte para booleano, com "!!"
     //Ele está deixando 'aberto' o user, o signup e o SignIn
-    <AuthContext.Provider value={{ signed: !!user, user, signUp, signIn }}>
+    <AuthContext.Provider
+      value={{ signed: !!user, user, signUp, signIn, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
