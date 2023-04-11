@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { set, ref, getDatabase, get } from "firebase/database";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export const AuthContext = createContext({});
 
@@ -95,7 +95,7 @@ function AuthProvider({ children }) {
   //armazenar credenciais do usuário
   async function storageUser(data) {
     //transformando para string
-    await AsyncStorage.setItem("auth_user", JSON.stringify(data));
+    await AsyncStorage.setItem("Auth_user", JSON.stringify(data));
   }
 
   return (
