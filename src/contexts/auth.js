@@ -14,6 +14,11 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  //Inicializar o auth
+  const auth = getAuth(firebaseConnection);
+  //Inicializar o database
+  const database = getDatabase(firebaseConnection);
+
   useEffect(() => {
     async function loadStorage() {
       //pegar informações do AsyncStorage
@@ -30,11 +35,6 @@ function AuthProvider({ children }) {
 
     loadStorage();
   }, []);
-
-  //Inicializar o auth
-  const auth = getAuth(firebaseConnection);
-  //Inicializar o database
-  const database = getDatabase(firebaseConnection);
 
   //LOGAR O USUÁRIO
   async function signIn(email, password) {
@@ -94,8 +94,17 @@ function AuthProvider({ children }) {
 
   //armazenar credenciais do usuário
   async function storageUser(data) {
-    //transformando para string
+    //transformando os dados para string
     await AsyncStorage.setItem("Auth_user", JSON.stringify(data));
+  }
+
+  //Função de deslogar
+  async function signOut() {
+    await signOut(auth);
+    await AsyncStorage.clear().then(() => {
+      //repassando como null para deslogar
+      setUser(null);
+    });
   }
 
   return (
@@ -103,7 +112,7 @@ function AuthProvider({ children }) {
     //Recebe como parâmetro o signed e converte para booleano, com "!!"
     //Ele está deixando 'aberto' o user, o signup e o SignIn
     <AuthContext.Provider
-      value={{ signed: !!user, user, signUp, signIn, loading }}
+      value={{ signed: !!user, user, signUp, signIn, signOut, loading }}
     >
       {children}
     </AuthContext.Provider>
