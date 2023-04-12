@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { set, ref, getDatabase, get } from "firebase/database";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext({});
 
@@ -100,7 +100,7 @@ function AuthProvider({ children }) {
 
   //Função de deslogar
   async function signOut() {
-    await signOut(auth);
+    await auth.signOut();
     await AsyncStorage.clear().then(() => {
       //repassando como null para deslogar
       setUser(null);
