@@ -10,8 +10,9 @@ export default function Home() {
   const [historico, setHistorico] = useState([
     { key: "1", tipo: "receita", valor: 1200 },
     { key: "2", tipo: "despesa", valor: 200 },
-    { key: "3", tipo: "receit", valor: 40 },
+    { key: "3", tipo: "receita", valor: 40 },
     { key: "4", tipo: "receita", valor: 89.62 },
+    { key: "5", tipo: "despesa", valor: 500.0 },
   ]);
 
   const { user } = useContext(AuthContext);
@@ -21,17 +22,20 @@ export default function Home() {
       <Header />
 
       <Container>
-        <Nome>Matheus</Nome>
+        <Nome>{user && user.nome}</Nome>
         <Saldo>R$ 123,00</Saldo>
       </Container>
 
       <Title>Últimas Movimentações</Title>
 
       <List
-        showVerticalScrollIndicator={false}
+        //não aparecer a barra de scroll
+        showsVerticalScrollIndicator={false}
         data={historico}
+        //extrair uma chave única de cada item da lista
         keyExtractor={(item) => item.key}
-        renderItem={({ item }) => <HistoricoList />}
+        //repassando o item como prop
+        renderItem={({ item }) => <HistoricoList data={item} />}
       />
     </Background>
   );

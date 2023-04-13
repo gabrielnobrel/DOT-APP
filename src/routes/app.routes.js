@@ -15,7 +15,7 @@ function AppRoutes() {
     <AppDrawer.Navigator
       screenOptions={{
         drawerStyle: {
-          backgroundColor: "#33322b",
+          backgroundColor: "#131313",
         },
 
         drawerLabelStyle: {

@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 
 export const Background = styled.View`
   flex: 1;
-  background-color: #33322b;
+  background-color: #131313;
 `;
 
 //O KeyboardAvoidingView serve para que a aplicação acompanhe o teclado
