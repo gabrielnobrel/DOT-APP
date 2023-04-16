@@ -1,13 +1,48 @@
 import React, { useState } from "react";
-import { SafeAreaView, Keyboard, TouchableWithoutFeedback } from "react-native";
+import {
+  SafeAreaView,
+  Keyboard,
+  TouchableWithoutFeedback,
+  Alert,
+} from "react-native";
 import { Background, Input, SubmitButton, SubmitText } from "./styles";
 
-import Picker from "../../components/Picker";
+import Picker from "../../components/Picker/index.android";
 import Header from "../../components/Header";
 
 export default function New() {
   const [valor, setValor] = useState("");
   const [tipo, setTipo] = useState("receita");
+
+  function handleSubmit() {
+    // Fechar o teclado
+    Keyboard.dismiss();
+    //convertendo o valor para parseFloat e pra ser verificado se é um número
+    if (isNaN(parseFloat(valor)) || tipo === null) {
+      alert("Preencha todos os campos");
+      return;
+    }
+
+    //Serve para personalizar o pop-up alert
+    Alert.alert(
+      "Confirmando dados",
+      `Tipo ${tipo} - Valor: ${parseFloat(valor)}`,
+
+      // Criando botões para o alert
+      [
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+        {
+          text: "Continuar",
+          onPress: () => handleAdd(),
+        },
+      ]
+    );
+  }
+
+  function handleAdd() {}
 
   return (
     //quando apertar fora o teclado recolher
@@ -31,7 +66,7 @@ export default function New() {
 
           <Picker onChange={setTipo} tipo={tipo} />
 
-          <SubmitButton>
+          <SubmitButton onPress={handleSubmit}>
             <SubmitText>Registrar</SubmitText>
           </SubmitButton>
         </SafeAreaView>

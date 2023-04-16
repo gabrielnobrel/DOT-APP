@@ -25,7 +25,7 @@ function AuthProvider({ children }) {
       const storageUser = await AsyncStorage.getItem("Auth_user");
 
       if (storageUser) {
-        //enviando as informações para o setUser. O 'parse' serve para transformar uma string em ojeto
+        //enviando as informações para o setUser. O 'parse' serve para transformar uma string em objeto
         setUser(JSON.parse(storageUser));
         setLoading(false);
       }
@@ -70,7 +70,7 @@ function AuthProvider({ children }) {
       .then(async (value) => {
         let uid = value.user.uid; //Acessar o id do usuário
 
-        //Capturar no database o id do usuário e criar seu nome e saldo no database
+        //Criar no database o id do usuário e criar seu nome e saldo no database
         await set(ref(database, `users/${uid}`), {
           saldo: 0,
           nome: nome,
