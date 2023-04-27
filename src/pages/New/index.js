@@ -5,14 +5,26 @@ import {
   TouchableWithoutFeedback,
   Alert,
 } from "react-native";
-import { Background, Input, SubmitButton, SubmitText } from "./styles";
+import { useNavigation } from "@react-navigation/native";
+import format from "date-fns";
 
-import Picker from "../../components/Picker/index.android";
+//FIREBASE
+import firebaseConnection from "../../services/firebaseConnection";
+import { getAuth, currentUser } from "firebase/auth";
+import { getDatabase, get, set, ref, push } from "firebase/database";
+
 import Header from "../../components/Header";
+import { Background, Input, SubmitButton, SubmitText } from "./styles";
+import Picker from "../../components/Picker";
 
 export default function New() {
+  const navigation = useNavigation();
+
   const [valor, setValor] = useState("");
   const [tipo, setTipo] = useState("receita");
+
+  const auth = getAuth(firebaseConnection);
+  const database = getDatabase(firebaseConnection);
 
   function handleSubmit() {
     // Fechar o teclado
@@ -42,14 +54,40 @@ export default function New() {
     );
   }
 
-  function handleAdd() {}
+  async function handleAdd() {
+    //pegando o uid do usuário
+    let uid = await auth.currentUser.uid();
+    //gerando uma chave aleatória
+    let key = await push(ref(database).child("historico").child(uid)).key;
+    await set(ref(child(ref(database), `historico/${uid}/${key}`)), {
+      tipo: tipo,
+      valor: parseFloat(valor),
+      //utilizar o formato de date fns
+      // date: new Date(),
+      date: format(new Date(), "dd/MM/YY"),
+    });
+    //Atualizar o saldo
+    let user = ref(database, `users/${uid}`);
+    //transformando para parsefloat
+    let saldo = parseFloat(
+      await get(ref(database, `users/${uid}`)).val().saldo
+    );
+
+    tipo === "despesa"
+      ? (saldo -= parseFloat(valor))
+      : (saldo += parseFloat(valor));
+    //enviando para o usuário o novo saldo
+    await set(ref(user, "saldo"), saldo);
+    Keyboard.dismiss();
+    setValor("");
+    navigation.navigate("Home");
+  }
 
   return (
     //quando apertar fora o teclado recolher
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Background>
         <Header />
-
         {/* garantir que ele vai pegar a área do celular de qualquer modelo */}
         <SafeAreaView style={{ alignItems: "center" }}>
           <Input
