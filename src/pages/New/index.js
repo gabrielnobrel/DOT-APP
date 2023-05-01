@@ -1,18 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   SafeAreaView,
   Keyboard,
   TouchableWithoutFeedback,
   Alert,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import format from "date-fns";
+
+//FIREBASE
+import firebaseConnection from "../../services/firebaseConnection";
+import { getDatabase, get, set, ref, push, child } from "firebase/database";
+
+//COMPONENTS
+import Header from "../../components/Header";
+import Picker from "../../components/Picker";
+
+import { AuthContext } from "../../contexts/auth";
+
+//STYLES
 import { Background, Input, SubmitButton, SubmitText } from "./styles";
 
-import Picker from "../../components/Picker/index.android";
-import Header from "../../components/Header";
+const database = getDatabase();
 
 export default function New() {
+  const navigation = useNavigation();
+
   const [valor, setValor] = useState("");
-  const [tipo, setTipo] = useState("receita");
+  const [tipo, setTipo] = useState(null);
+
+  const { user: usuario } = useContext(AuthContext);
 
   function handleSubmit() {
     // Fechar o teclado
@@ -42,14 +59,45 @@ export default function New() {
     );
   }
 
-  function handleAdd() {}
+  async function handleAdd() {
+    //pegando o uid do usuário
+    const uid = usuario.uid;
+
+    //gerando uma chave aleatória
+    // const newPostRef = push(ref(database, `historico/${uid}`));
+    const key = await push(ref(database, `historico/${uid}`)).key;
+
+    await set(ref(database, `historico/${uid}/${key}`), {
+      tipo: tipo,
+      valor: parseFloat(valor),
+      //utilizar o formato de date fns
+      // date: new Date(),
+      date: format(new Date(), "dd/MM/YY"),
+    });
+
+    //Atualizar o saldo
+    let userRef = child(ref(database), `users/${uid}`);
+    await get(userRef).then((snapshot) => {
+      //transformando para parsefloat
+      const saldo = parseFloat(snapshot.val().saldo);
+      const novoSaldo =
+        tipo === "despesa"
+          ? (saldo -= parseFloat(valor))
+          : (saldo += parseFloat(valor));
+      //enviando para o usuário o novo saldo
+      set(child(userRef, "saldo"), novoSaldo);
+    });
+
+    Keyboard.dismiss();
+    setValor("");
+    navigation.navigate("Home");
+  }
 
   return (
     //quando apertar fora o teclado recolher
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Background>
         <Header />
-
         {/* garantir que ele vai pegar a área do celular de qualquer modelo */}
         <SafeAreaView style={{ alignItems: "center" }}>
           <Input
@@ -64,7 +112,7 @@ export default function New() {
             onChangeText={(text) => setValor(text)}
           />
 
-          <Picker onChange={setTipo} tipo={tipo} />
+          <Picker onChange={setTipo} />
 
           <SubmitButton onPress={handleSubmit}>
             <SubmitText>Registrar</SubmitText>
