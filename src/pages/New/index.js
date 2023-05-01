@@ -26,6 +26,8 @@ const database = getDatabase();
 export default function New() {
   const navigation = useNavigation();
 
+  const navigation = useNavigation();
+
   const [valor, setValor] = useState("");
   const [tipo, setTipo] = useState(null);
 
