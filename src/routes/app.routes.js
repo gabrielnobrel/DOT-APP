@@ -5,6 +5,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import New from "../pages/New";
+import Lojas from "../pages/Lojas";
 
 //Substituir o Stack Navigator por Drawer Navigator
 // const AppStack = createNativeStackNavigator();
@@ -15,17 +16,17 @@ function AppRoutes() {
     <AppDrawer.Navigator
       screenOptions={{
         drawerStyle: {
-          backgroundColor: "#131313",
+          backgroundColor: "#00171E",
         },
 
         drawerLabelStyle: {
           fontWeight: "bold",
         },
 
-        drawerActiveTintColor: "#fff",
-        drawerActiveBackgroundColor: "#00b94a",
-        drawerInactiveBackgroundColor: "#000",
-        drawerInactiveTintColor: "#ddd",
+        drawerActiveTintColor: "#00171E",
+        drawerActiveBackgroundColor: "#D9D9D9",
+        drawerInactiveBackgroundColor: "#00171E",
+        drawerInactiveTintColor: "#00BE6A",
 
         headerShown: false,
 
@@ -35,7 +36,7 @@ function AppRoutes() {
       }}
     >
       <AppDrawer.Screen name="Home" component={Home} />
-      <AppDrawer.Screen name="Registrar" component={New} />
+      <AppDrawer.Screen name="Lojas" component={Lojas} />
       <AppDrawer.Screen name="Perfil" component={Profile} />
     </AppDrawer.Navigator>
   );

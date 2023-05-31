@@ -12,6 +12,7 @@ import {
   SubmitButton,
   SubmitText,
   Link,
+  Text,
   LinkText,
 } from "./styles";
 
@@ -30,7 +31,7 @@ export default function SignIn() {
     <Background>
       {/* Para saber se está no sistema IOS, assim a aplicação se adapta ao teclado */}
       <Container behavior={Platform.OS === "ios" ? "padding" : ""} enabled>
-        <Logo source={require("../../assets/Logo.png")} />
+        <Logo source={require("../../assets/image.png")} />
 
         <AreaInput>
           <Input
@@ -55,12 +56,13 @@ export default function SignIn() {
         </AreaInput>
 
         <SubmitButton onPress={handleLogin}>
-          <SubmitText>Acessar</SubmitText>
+          <SubmitText>Entrar</SubmitText>
         </SubmitButton>
 
         <Link>
+          <Text>Não possui acesso?</Text>
           <LinkText onPress={() => navigation.navigate("SignUp")}>
-            Criar uma conta
+            Crie uma conta
           </LinkText>
         </Link>
       </Container>

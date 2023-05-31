@@ -24,7 +24,7 @@ import { Background, Input, SubmitButton, SubmitText } from "./styles";
 const database = getDatabase();
 
 export default function New() {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const navigation = useNavigation();
 

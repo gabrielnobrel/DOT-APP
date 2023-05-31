@@ -13,7 +13,7 @@ import {
   SubmitText,
   Link,
   LinkText,
-} from "../SignIn/styles";
+} from "./styles";
 
 export default function SignUp() {
   const [nome, setNome] = useState("");
@@ -30,6 +30,8 @@ export default function SignUp() {
     <Background>
       {/* Para saber se está no sistema IOS, assim a aplicação se adapta ao teclado */}
       <Container behavior={Platform.OS === "ios" ? "padding" : ""} enabled>
+        <Logo source={require("../../assets/LogoSignUp.png")} />
+
         <AreaInput>
           <Input
             placeholder="Nome"
@@ -63,7 +65,7 @@ export default function SignUp() {
         </AreaInput>
 
         <SubmitButton onPress={handleSignUp}>
-          <SubmitText>Cadastrar</SubmitText>
+          <SubmitText>Cadastre-se</SubmitText>
         </SubmitButton>
       </Container>
     </Background>

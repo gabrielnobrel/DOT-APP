@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 
 export const Background = styled.View`
   flex: 1;
-  background-color: #00171e;
+  background-color: #063e23;
 `;
 
 //O KeyboardAvoidingView serve para que a aplicação acompanhe o teclado
@@ -21,7 +21,7 @@ export const AreaInput = styled.View`
 export const Input = styled.TextInput.attrs({
   placeholderTextColor: "rgba(255, 255, 255, 0.5)",
 })`
-  background: #00be6a;
+  background: rgba(255, 255, 255, 0.5);
   width: 90%;
   font-size: 17px;
   color: #fff;
@@ -33,7 +33,7 @@ export const Input = styled.TextInput.attrs({
 export const SubmitButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
-  background-color: #00be6a;
+  background-color: #fff;
   width: 40%;
   height: 45px;
   border-radius: 50px;
@@ -42,7 +42,7 @@ export const SubmitButton = styled.TouchableOpacity`
 
 export const SubmitText = styled.Text`
   font-size: 20px;
-  color: #fff;
+  color: #063e23;
 `;
 
 export const Link = styled.TouchableOpacity`
