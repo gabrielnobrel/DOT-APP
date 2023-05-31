@@ -41,7 +41,7 @@ export default function Lojas() {
 
       {/* garantir que ele vai pegar a área do celular de qualquer modelo */}
       <SafeAreaView style={{ alignItems: "center" }}>
-        <Title>Lojas Parceiras</Title>
+        <Title>Lojas Parceias</Title>
 
         <AreaLoja>
           <Img source={require("../../assets/Loja1.jpg")} />
