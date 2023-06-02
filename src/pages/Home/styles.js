@@ -10,10 +10,15 @@ export const Container = styled.View`
   margin-bottom: 25px;
 `;
 
-export const Nome = styled.Text`
-  font-size: 19px;
+export const Hello = styled.Text`
+  font-size: 20px;
   color: #fff;
-  font-style: italic;
+`;
+
+export const Nome = styled.Text`
+  font-size: 30px;
+  color: #fff;
+  font-weight: 600;
 `;
 
 export const Saldo = styled.Text`
@@ -29,12 +34,18 @@ export const Title = styled.Text`
   margin-bottom: 10px;
 `;
 
-export const List = styled.FlatList.attrs({
-  marginHorizontal: 15,
-})`
+export const List = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
   padding-top: 15px;
   background-color: #fff;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
   margin: 0px 9px;
+`;
+
+export const PanoImage = styled.Image`
+  height: 100%;
+  width: 100%;
 `;

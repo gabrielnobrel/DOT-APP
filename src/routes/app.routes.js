@@ -4,7 +4,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
-import New from "../pages/New";
 import Lojas from "../pages/Lojas";
 
 //Substituir o Stack Navigator por Drawer Navigator

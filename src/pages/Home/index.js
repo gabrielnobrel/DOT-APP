@@ -1,20 +1,24 @@
 import React, { useContext, useState } from "react";
+import PanoramaView from "@lightbase/react-native-panorama-view";
 
 import Header from "../../components/Header";
 import { AuthContext } from "../../contexts/auth";
 import HistoricoList from "../../components/HistoricoList";
 
-import { Background, Container, Nome, Saldo, Title, List } from "./styles";
+import {
+  Background,
+  Container,
+  Hello,
+  Nome,
+  Saldo,
+  Title,
+  List,
+  PanoImage,
+  Map,
+} from "./styles";
+import { Dimensions } from "react-native-web";
 
 export default function Home() {
-  const [historico, setHistorico] = useState([
-    { key: "1", tipo: "receita", valor: 1200 },
-    { key: "2", tipo: "despesa", valor: 200 },
-    { key: "3", tipo: "receita", valor: 40 },
-    { key: "4", tipo: "receita", valor: 89.62 },
-    { key: "5", tipo: "despesa", valor: 500.0 },
-  ]);
-
   const { user } = useContext(AuthContext);
 
   return (
@@ -22,21 +26,13 @@ export default function Home() {
       <Header />
 
       <Container>
+        <Hello>Olá,</Hello>
         <Nome>{user && user.nome}</Nome>
-        <Saldo>R$ 123,00</Saldo>
       </Container>
 
-      <Title>Últimas Movimentações</Title>
-
-      <List
-        //não aparecer a barra de scroll
-        showsVerticalScrollIndicator={false}
-        data={historico}
-        //extrair uma chave única de cada item da lista
-        keyExtractor={(item) => item.key}
-        //repassando o item como prop
-        renderItem={({ item }) => <HistoricoList data={item} />}
-      />
+      <List>
+        <PanoImage source={require("../../assets/mapa.png")} />
+      </List>
     </Background>
   );
 }

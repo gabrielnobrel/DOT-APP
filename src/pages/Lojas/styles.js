@@ -6,24 +6,51 @@ export const Background = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 20px;
+  width: 100%;
+  margin-left: 15px;
+  font-size: 30px;
   font-weight: 700;
   color: white;
 `;
 
+export const ListLojas = styled.ScrollView`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
 export const AreaLoja = styled.View`
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
   width: 317px;
   height: 70px;
   border-radius: 66px;
+  margin-top: 25px;
 
   background-color: #fff;
 `;
 
-export const Img = styled.Image`
-  width: 20px;
-  height: 20px;
+export const CircleImage = styled.Image`
+  width: 70px;
+  height: 100%;
+  border-radius: 100px;
+  overflow: hidden;
+`;
 
-  clip-path: inset(50px 100px 50px 100px);
+export const LojaInformation = styled.View`
+  margin-left: 29px;
+  background-color: red;
+`;
+
+export const TitleLoja = styled.Text`
+  font-size: 20px;
+  color: #00171e;
+`;
+
+export const SubtitleLoja = styled.Text`
+  color: #00171e;
 `;
 
 export const Input = styled.TextInput.attrs({

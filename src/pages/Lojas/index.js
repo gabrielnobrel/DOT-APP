@@ -1,36 +1,19 @@
 import React, { useState, useContext } from "react";
+import { ImageBackground } from "react-native-web";
 import {
   SafeAreaView,
+  View,
   Keyboard,
   TouchableWithoutFeedback,
   Alert,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import format from "date-fns";
-
-//FIREBASE
-import firebaseConnection from "../../services/firebaseConnection";
-import { getDatabase, get, set, ref, push, child } from "firebase/database";
 
 //COMPONENTS
 import Header from "../../components/Header";
-// import Picker from "../../components/Picker";
-
-import { AuthContext } from "../../contexts/auth";
+import ButtonLoja from "../../components/ButtonLoja";
 
 //STYLES
-
-import {
-  Background,
-  Title,
-  AreaLoja,
-  Img,
-  Input,
-  SubmitButton,
-  SubmitText,
-} from "./styles";
-
-const database = getDatabase();
+import { Background, Title, ListLojas } from "./styles";
 
 export default function Lojas() {
   return (
@@ -41,23 +24,59 @@ export default function Lojas() {
 
       {/* garantir que ele vai pegar a área do celular de qualquer modelo */}
       <SafeAreaView style={{ alignItems: "center" }}>
-        <Title>Lojas Parceias</Title>
+        <Title>Lojas Parceiras</Title>
 
-        <AreaLoja>
-          <Img source={require("../../assets/Loja1.jpg")} />
-        </AreaLoja>
-        {/* <Input
-            placeholder="Valor desejado"
-            //tipo do teclado
-            keyboardType="numeric"
-            //ao apertar no enter irá para o próximo campo
-            returnKeyType="next"
-            //ao apertar no enter no último campo, irá recolher o teclado
-          /> */}
+        <ListLojas showsVerticalScrollIndicator={false}>
+          <ButtonLoja
+            title={"Zara"}
+            subtitle={"Loja 303 - Piso L2"}
+            imgSrc={require("../../assets/zara.jpg")}
+          />
 
-        {/* <SubmitButton>
-            <SubmitText>Registrar</SubmitText>
-          </SubmitButton> */}
+          <ButtonLoja
+            title={"Dior"}
+            subtitle={"Loja 25 - Piso L1"}
+            imgSrc={require("../../assets/dior.jpg")}
+          />
+
+          <ButtonLoja
+            title={"Fenty Beauty"}
+            subtitle={"Loja 86 - Piso L2"}
+            imgSrc={require("../../assets/fentyBeauty.jpg")}
+          />
+
+          <ButtonLoja
+            title={"Le Creuset"}
+            subtitle={"Loja 54 - Piso L1"}
+            imgSrc={require("../../assets/leCreuset.png")}
+          />
+
+          <ButtonLoja
+            title={"Renner"}
+            subtitle={"Loja 77 - Piso L3"}
+            imgSrc={require("../../assets/renner.png")}
+          />
+
+          <ButtonLoja
+            title={"MAC"}
+            subtitle={"Loja 62 - Piso L2"}
+            imgSrc={require("../../assets/mac.png")}
+          />
+
+          <ButtonLoja
+            title={"Apple"}
+            subtitle={"Loja 24 - Piso L1"}
+            imgSrc={require("../../assets/Apple.avif")}
+          />
+
+          <ButtonLoja
+            title={"Rolex"}
+            subtitle={"Loja 56 - Piso L3"}
+            imgSrc={require("../../assets/rolex.jpg")}
+          />
+
+          <View style={{ height: 160 }} />
+        </ListLojas>
       </SafeAreaView>
     </Background>
   );
